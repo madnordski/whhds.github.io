@@ -1,23 +1,12 @@
-# push to web site
+# deploy to github
+# init repo first
 
-SRC = $(wildcard *.htm* *.css *.jpg *.gif *.png)
+push:
+	@git rev-parse --is-inside-work-tree
+	git add -A
+	git commit -m "update site" || true
+	git push
 
-IP := 107.180.118.108
-# old host 107.180.41.145, changed on jul 19 2024
-
-USER := madnordski
-
-WEBDIR := public_html
-
-# implicit
-%.html.get: %.html
-	scp $(USER)@$(IP):$(WEBDIR)/$? .
-
-%.html.put: %.html
-	scp $? $(USER)@$(IP):$(WEBDIR)/
-
-# explicit
-
-lastupdate.txt: $(SRC)
-	scp $? $(USER)@$(IP):$(WEBDIR)/
-	touch $@
+init:
+	git init
+	git remote add origin git@github.com:madnordski/whhds.github.io.git
