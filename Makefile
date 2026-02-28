@@ -2,7 +2,7 @@
 # init repo first
 
 push:
-	@git rev-parse --is-inside-work-tree
+	@git rev-parse --is-inside-work-tree >/dev/null
 	git add -A
 	git commit -m "update site" || true
 	git push
